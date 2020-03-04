@@ -34,7 +34,7 @@ const initialState: Array<ShoppingItem> = [
   {
     name: 'Imported Almond Snickers',
     price: 75.99,
-    type: 'shoe',
+    type: 'candy',
     origin: 'imported'
   },
   {

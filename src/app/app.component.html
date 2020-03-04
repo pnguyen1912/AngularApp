@@ -17,14 +17,16 @@
   <button style="float:right; margin-top:40px ;" (click)="removeAll()">Clear Cart</button>
   <div style="margin-bottom: 5px" *ngFor="let item of cartItems$ | async" class="shopping-list">
     <div style="margin-left: 10px">
-      <h2 style="display: inline-block;">
+      <h2>
         {{item.name}}
       </h2>
-      <input style="display: inline-block;width: 50px; text-align: center;" disabled placeholder={{item.quantity}}>
+      <h2>Quantity: {{item.quantity}}</h2>
       <h2>List price: ${{item.total.toFixed(2)}}</h2>
+      <h2>Sale Tax: ${{item.saleTax.toFixed(2)}}</h2>
+      <h2>Imported Tax: ${{item.importTax.toFixed(2)}}</h2>
     </div>
   </div>
-  <div>
-    <h1>Total:</h1>
-  </div>
 </div>
+<h1>List Price Total: {{(total$ | async).toFixed(2)}} </h1>
+<h1>Tax Total: {{(totalSaleTax$ | async)+(totalImportTax$ | async)}}</h1>
+<h1>List Price Total: {{((total$ | async)+(totalSaleTax$ | async)+(totalImportTax$ | async)).toFixed(2)}}</h1>

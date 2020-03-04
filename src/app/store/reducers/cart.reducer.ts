@@ -12,7 +12,9 @@ export function CartReducer(state: Array<CartItem> = initialState, action: CartA
           if (item.name === action.payload.name) {
             return Object.assign({}, item, {
               quantity: item.quantity + 1,
-              total: item.quantity * item.price
+              total: (item.quantity + 1) * item.price,
+              saleTax: (item.type === 'candy' || item.type === 'popcorn' || item.type === 'coffee') ? 0 : Math.round((item.quantity + 1) * item.price * 0.1 * 20) / 20,
+              importTax: item.origin === 'imported' ? Math.round((item.quantity + 1) * item.price * 0.05 * 20) / 20 : 0
             })
           }
           else {
@@ -24,6 +26,8 @@ export function CartReducer(state: Array<CartItem> = initialState, action: CartA
         let newObj = action.payload;
         newObj.quantity = 1;
         newObj.total = action.payload.price;
+        newObj.saleTax = action.payload.type === 'candy' || action.payload.type === 'popcorn' || action.payload.type === 'coffee' ? 0 : Math.round(action.payload.total * 0.1 * 20) / 20;
+        newObj.importTax = action.payload.origin === 'imported' ? Math.round(action.payload.total * 0.05 * 20) / 20 : 0
         return [...state, newObj]
       }
 

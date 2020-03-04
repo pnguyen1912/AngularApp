@@ -15,13 +15,18 @@ export class AppComponent implements OnInit {
 
   shoppingItems$: Observable<Array<ShoppingItem>>;
   cartItems$: Observable<Array<CartItem>>;
+  total$: Observable<number>
+  totalSaleTax$: Observable<number>
+  totalImportTax$: Observable<number>
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.shoppingItems$ = this.store.select(store => store.shopping)
     this.cartItems$ = this.store.select(store => store.cart)
-    console.log(this.cartItems$)
+    this.total$ = this.store.select(store => store.cart.map(item => item.total).reduce((a, b) => a + b, 0))
+    this.totalSaleTax$ = this.store.select(store => store.cart.map(item => item.saleTax).reduce((a, b) => a + b, 0))
+    this.totalImportTax$ = this.store.select(store => store.cart.map(item => item.importTax).reduce((a, b) => a + b, 0))
   }
 
 
