@@ -1,36 +1,30 @@
-
-
-
-
 <div style="display: inline-block;" class="wrapper">
-  <div class="shopping-list">
-    <div class="list">
-      
-      <ul>
-        <li *ngFor="let item of shoppingItems$ | async">
-          <h2>
-          {{ item.name}}
-          </h2>
-        </li>
-      </ul>
-
-     
+  <h1>Options:</h1>
+  <div style="margin-bottom: 5px" *ngFor="let item of shoppingItems$ | async" class="shopping-list">
+    <div style="margin-left: 10px">
+      <h2 style="display: inline-block;">
+        {{item.name}}
+        <br>
+        Price: ${{item.price.toFixed(2)}}
+      </h2>
+      <button (click)="addItem(item)" style="float: right; height: 100%;">Add To Cart</button>
     </div>
   </div>
 </div>
 
-<div class="wrapper" style="float: right">
-<div class="shopping-list">
-  <div class="list">
-    <h2>Shopping List</h2>
-
-    <ul>
-      <li *ngFor="let item of cartItems$ | async">
-        {{ item.name}}
-      </li>
-    </ul>
-
-   
+<div style="float:right;width: 55%;" class="wrapper">
+  <h1 style="display: inline-block;">Cart:</h1>
+  <button style="float:right; margin-top:40px ;" (click)="removeAll()">Clear Cart</button>
+  <div style="margin-bottom: 5px" *ngFor="let item of cartItems$ | async" class="shopping-list">
+    <div style="margin-left: 10px">
+      <h2 style="display: inline-block;">
+        {{item.name}}
+      </h2>
+      <input style="display: inline-block;width: 50px; text-align: center;" disabled placeholder={{item.quantity}}>
+      <h2>List price: ${{item.total.toFixed(2)}}</h2>
+    </div>
+  </div>
+  <div>
+    <h1>Total:</h1>
   </div>
 </div>
-</div>  
