@@ -1,32 +1,47 @@
-<div style="display: inline-block;" class="wrapper">
+<div style="display: inline-block;" class="wrapper w3-container">
   <h1>Options:</h1>
-  <div style="margin-bottom: 5px" *ngFor="let item of shoppingItems$ | async" class="shopping-list">
+  <div style="margin-bottom: 5px" *ngFor="let item of shoppingItems$ | async" class="shopping-list w3-panel w3-card">
     <div style="margin-left: 10px">
-      <h2 style="display: inline-block;">
+      <h4 style="display: inline-block;">
         {{item.name}}
         <br>
         Price: ${{item.price.toFixed(2)}}
-      </h2>
-      <button (click)="addItem(item)" style="float: right; height: 100%;">Add To Cart</button>
+      </h4>
+      <button (click)="addItem(item)" class="w3-btn w3-round-large"
+        style="float: right; height: 100%;background-color: rgb(121, 121, 121); margin-top: 20px;">Add To
+        Cart</button>
     </div>
   </div>
 </div>
 
-<div style="float:right;width: 55%;" class="wrapper">
+<div style="float:right;width: 55%" class="wrapper">
   <h1 style="display: inline-block;">Cart:</h1>
-  <button style="float:right; margin-top:40px ;" (click)="removeAll()">Clear Cart</button>
-  <div style="margin-bottom: 5px" *ngFor="let item of cartItems$ | async" class="shopping-list">
-    <div style="margin-left: 10px">
-      <h2>
-        {{item.name}}
-      </h2>
-      <h2>Quantity: {{item.quantity}}</h2>
-      <h2>List price: ${{item.total.toFixed(2)}}</h2>
-      <h2>Sale Tax: ${{item.saleTax.toFixed(2)}}</h2>
-      <h2>Imported Tax: ${{item.importTax.toFixed(2)}}</h2>
+  <button class="w3-btn w3-round-large"
+    style="float:right; margin-top:30px; margin-right: 100px;background-color: rgb(121, 121, 121)"
+    (click)="removeAll()">Clear Cart</button>
+  <div style=" color: black" *ngFor="let item of cartItems$ | async" class="w3-card-4">
+    <header class="w3-container w3-light-grey">
+      <h3>{{item.name}}</h3>
+    </header>
+    <div class="w3-container">
+      <p>Quantity: {{item.quantity}}</p>
+      <p>List price: ${{item.total.toFixed(2)}}</p>
+      <p>Sale Tax: ${{item.saleTax.toFixed(2)}}</p>
+      <p>Imported Tax: ${{item.importTax.toFixed(2)}}</p>
     </div>
+
   </div>
+  <div class="w3-card-4" style="text-align: end;">
+
+
+    <div class="w3-container">
+      <p>List Price: ${{(total$ | async).toFixed(2)}} </p>
+      <p>Tax Total: ${{(totalSaleTax$ | async)+(totalImportTax$ | async)}}</p>
+    </div>
+    <header class="w3-container w3-light-grey">
+      <h3>Grand Total: ${{((total$ | async)+(totalSaleTax$ | async)+(totalImportTax$ | async)).toFixed(2)}}</h3>
+    </header>
+  </div>
+
+
 </div>
-<h1>List Price Total: {{(total$ | async).toFixed(2)}} </h1>
-<h1>Tax Total: {{(totalSaleTax$ | async)+(totalImportTax$ | async)}}</h1>
-<h1>List Price Total: {{((total$ | async)+(totalSaleTax$ | async)+(totalImportTax$ | async)).toFixed(2)}}</h1>
